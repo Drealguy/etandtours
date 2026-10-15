@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* Dark mode is class-based: ThemeToggle adds .dark to <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #0b1220;
+  /* Brand yellow, measured from the ETandTOURS logo. Use it for FILLS only (buttons, active items, badges). */
+  --brand: #f8c725;
+  --brand-dark: #e5b10f; /* hover on yellow fills */
+  --brand-deep: #8a6500; /* dark gold: dark pills, gold text on white or pale yellow (5:1 on white) */
+  --brand-light: #fef4d4; /* pale yellow */
+  /* Text and icons on a yellow fill. Yellow is too light for white text, so this is ink in both themes. */
+  --on-brand: #0b1220;
+  /* ink = always-dark colour (photo overlays, dark pills). Use `fg` for text that flips in dark mode. */
+  --ink: #0b1220;
+  --muted: #5b6475;
+
+  /* Theme-aware tokens (flip in dark mode) */
+  --surface: #ffffff; /* cards, panels, dropdowns, footer */
+  --fg: #0b1220; /* headings and strong text */
+  /* Brand colour for text and icons on page surfaces: dark gold in light mode, yellow in dark mode. */
+  --accent: #8a6500;
+  --line: rgb(11 18 32 / 0.1); /* borders and dividers */
+  --tint: rgb(254 244 212 / 0.6); /* pale yellow surfaces: closed accordions, info cards */
+  --tint-strong: #fef4d4; /* hover on tinted surfaces */
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #0a0f1a;
+  --foreground: #eef1f6;
+  --muted: #9aa3b5;
+  --surface: #121a2b;
+  --fg: #eef1f6;
+  --accent: #f8c725;
+  --line: rgb(255 255 255 / 0.1);
+  --tint: rgb(248 199 37 / 0.1);
+  --tint-strong: rgb(248 199 37 / 0.16);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-line: var(--line);
+  --color-tint: var(--tint);
+  --color-tint-strong: var(--tint-strong);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-light: var(--brand-light);
+  --color-on-brand: var(--on-brand);
+  --color-accent: var(--accent);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-dm-sans);
+  --font-heading: var(--font-rethink-sans);
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-reverse: marquee 40s linear infinite reverse;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-dm-sans), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-rethink-sans), sans-serif;
+}

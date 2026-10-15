@@ -1,0 +1,69 @@
+"use client";
+
+import { useState } from "react";
+import { Plus, X } from "lucide-react";
+import { Container, Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { cn } from "@/lib/cn";
+import { faqs } from "@/lib/faqs";
+
+export function Faq() {
+  const [open, setOpen] = useState<number | null>(0);
+
+  return (
+    <Section id="faq">
+      <Container className="max-w-5xl">
+        <SectionHeading align="center" title="Frequently Asked Questions" />
+
+        <ul className="mt-12 flex flex-col gap-3 sm:mt-16">
+          {faqs.map(({ question, answer }, i) => {
+            const isOpen = open === i;
+            return (
+              <li
+                key={question}
+                className={cn(
+                  "rounded-3xl border transition-colors duration-300",
+                  isOpen ? "border-line bg-surface" : "border-transparent bg-tint",
+                )}
+              >
+                <h3>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-${i}`}
+                    className="flex w-full items-center justify-between gap-4 rounded-3xl px-5 py-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:px-7 sm:py-5"
+                  >
+                    <span className="font-heading text-base font-semibold text-fg sm:text-lg">{question}</span>
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "flex size-10 shrink-0 items-center justify-center rounded-full transition-colors",
+                        isOpen ? "bg-brand text-on-brand" : "bg-white text-ink",
+                      )}
+                    >
+                      {isOpen ? <X size={18} /> : <Plus size={18} />}
+                    </span>
+                  </button>
+                </h3>
+                <div
+                  id={`faq-${i}`}
+                  className={cn(
+                    "grid transition-[grid-template-rows] duration-300",
+                    isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                  )}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-5 text-[15px] leading-relaxed text-muted sm:px-7 sm:pb-6 sm:text-base">
+                      {answer}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </Container>
+    </Section>
+  );
+}
